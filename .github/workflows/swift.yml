@@ -22,7 +22,8 @@ jobs:
 #         run: |
 #           echo $RELEASE_VERSION
 #           echo ${{ steps.vars.outputs.tag }}
-      - uses: olegtarasov/get-tag@v2.1
+      - name : Test
+        uses: olegtarasov/get-tag@v2.1
         id: tagName
         with:
           tagRegex: "(?<package>.*)-(?<version>.*)" 

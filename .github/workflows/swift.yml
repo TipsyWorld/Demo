@@ -13,34 +13,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-#       - name: Set output
-#         id: vars
-#         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-#       - name: Check output
-#         env:
-#           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-#         run: |
-#           echo $RELEASE_VERSION
-#           echo ${{ steps.vars.outputs.tag }}
-      - name : Test
-        uses: olegtarasov/get-tag@v2.1
-        id: tagName
-        with:
-          tagRegex: "(?<package>.*)-(?<version>.*)" 
-      - name: Some other step # Output usage example
-        with:
-          dirname: ${{ steps.tagName.outputs.package }}
-          tagname: ${{ steps.tagName.outputs.version }}
-          
-          
-          
-#       - name: Create Release
-#         id: create_release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         with:
-#           tag_name: ${{ github.ref }}
-#           release_name: ${{ github.ref }}
-#           draft: false
-#           prerelease: false
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+      - name: Use tag
+        run: echo ${{steps.tag.outputs.tag}}

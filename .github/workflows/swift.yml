@@ -22,6 +22,14 @@ jobs:
         run: |
           echo $RELEASE_VERSION
           echo ${{ steps.vars.outputs.tag }}
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
+        with:
+          tagRegex: "(?<package>.*)-(?<version>.*)" 
+      - name: Some other step # Output usage example
+        with:
+          dirname: ${{ steps.tagName.outputs.package }}
+          tagname: ${{ steps.tagName.outputs.version }}
 #       - name: Create Release
 #         id: create_release
 #         uses: actions/create-release@v1
